@@ -1,9 +1,9 @@
-name: Deploy to Server A (Developer Branch)
+name: Deploy to Test Server
 
 on:
   push:
     branches:
-      - developer
+      - development
 
 jobs:
   deploy:
@@ -13,10 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to Server A
-        run: |
-          sshpass -p "${{ secrets.SERVER_A_PASSWORD }}" scp -o StrictHostKeyChecking=no -r ./* "${{ secrets.SERVER_A_USERNAME }}"@${{ secrets.SERVER_A_HOST }}:/var/www/html/
-        env:
-          SERVER_A_HOST: ${{ secrets.SERVER_A_HOST }}
-          SERVER_A_USERNAME: ${{ secrets.SERVER_A_USERNAME }}
-          SERVER_A_PASSWORD: ${{ secrets.SERVER_A_PASSWORD }}
+      - name: SSH Deploy to Test Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 103.152.79.56
+          username: root
+          password: apt@test
+          port: 22
+          script: |
+            cd /var/www/html/
+            git pull
+          # Additional commands for deployment
