@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self deploy
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -22,5 +22,6 @@ jobs:
           port: 22
           script: |
             cd /var/www/html/
-            git pull maintestprod developer
+            git pull
+            sshpass -p apt@test scp -r ./* apt@103.152.79.56:/var/www/html/
             # Additional commands for deployment
