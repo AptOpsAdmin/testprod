@@ -1,0 +1,22 @@
+name: Deploy to Server A (Developer Branch)
+
+on:
+  push:
+    branches:
+      - developer
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server A
+        run: |
+          sshpass -p ${{ secrets.SERVER_A_PASSWORD }} scp -r path/to/files/ ${SERVER_A_USERNAME}@${SERVER_A_HOST}:path/to/destination
+        env:
+          SERVER_A_HOST: ${{ secrets.SERVER_A_HOST }}
+          SERVER_A_USERNAME: ${{ secrets.SERVER_A_USERNAME }}
+          SERVER_A_PASSWORD: ${{ secrets.SERVER_A_PASSWORD }}
