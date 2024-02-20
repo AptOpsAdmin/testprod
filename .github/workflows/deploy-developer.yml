@@ -22,5 +22,5 @@ jobs:
           port: 22
           script: |
             cd /var/www/html/
-            git pull
-          # Additional commands for developer
+            git pull maintestprod developer
+            # Additional commands for deployment
