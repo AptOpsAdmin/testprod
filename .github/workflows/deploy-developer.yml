@@ -22,6 +22,5 @@ jobs:
           port: 22
           script: |
             cd /var/www/html/
-            git pull
-            sshpass -p apt@test scp -r ./* apt@103.152.79.56:/var/www/html/
+            git pull origin developer
             # Additional commands for deployment
