@@ -1,1 +1,27 @@
+name: Deploy to Production Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Deploy to Production Server (for main branch)
+      - name: SSH Deploy to Production Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 34.201.52.104
+          username: root
+          password: ${{ secrets.PROD_SERVER_PASSWORD }}
+          port: 22
+          script: |
+            cd /var/www/html/
+            git pull origin main
 
