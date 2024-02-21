@@ -18,7 +18,7 @@ jobs:
         with:
           host: 103.152.79.56
           username: root
-          password: apt@test
+          password: ${{ secrets.TEST_SERVER_PASSWORD }}
           port: 22
           script: |
             cd /var/www/html/
